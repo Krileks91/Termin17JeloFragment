@@ -15,29 +15,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MasterFragment extends Fragment {
 
     //Mi kuckamo:
-    private ListView lvJela;
-    private List<Jelo> jela;
-    private OnNameClickListener listener;
+    private ListView listView_Jela;
+    private List<Jelo> jela = new ArrayList<>();
 
-    //Obavezno je da ima prazan konstruktor
+    private OnJeloClickListener listener;
+
     public MasterFragment() {
-
+        // Required empty public constructor
     }
 
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        lvJela = view.findViewById(R.id.lvJela);
-        setupList();
-    }
-
-    //OnCreateView nam naduvava sve
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,19 +37,29 @@ public class MasterFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_master, container, false);
     }
 
-    //kada je sivo treba da uradimo set metodu da bi bila pozvana
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        listView_Jela = view.findViewById(R.id.listView);
+
+        setupList();
+
+    }
+
     private void setupList() {
         jela = JeloProvider.getAllJela();
-        ArrayAdapter<Jelo> adapter = new ArrayAdapter<Jelo>(
-                getActivity(),
-                android.R.layout.simple_list_item_1, jela);
-        lvJela.setAdapter(adapter);
-        lvJela.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        JeloAdapter adapter = new JeloAdapter(jela, getActivity());
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, imena);
+        listView_Jela.setAdapter(adapter);
+
+        listView_Jela.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (listener != null) {
-                    listener.OnNameClicked(i);
-                }//else ako zelimo Toast
+                    listener.onJeloClicked(i);
+                }
             }
         });
     }
@@ -65,10 +67,11 @@ public class MasterFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof OnNameClickListener) {
-            listener = (OnNameClickListener) context;
+        if (context instanceof OnJeloClickListener) {
+            listener = (OnJeloClickListener) context;
         } else {
-            Toast.makeText(getContext(), "Morate implementirati interfejs", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Morate implementirati intefrace", Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -78,7 +81,7 @@ public class MasterFragment extends Fragment {
         listener = null;
     }
 
-    interface OnNameClickListener {
-        void OnNameClicked(int id);
+    interface OnJeloClickListener {
+        void onJeloClicked(int id);
     }
 }

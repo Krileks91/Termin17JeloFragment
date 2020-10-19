@@ -1,10 +1,11 @@
 package com.example.termin17jelofragment;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.ListFragment;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity  implements MasterFragment.OnNameClickListener {
+public class MainActivity extends AppCompatActivity implements MasterFragment.OnJeloClickListener{
 
     private boolean landscape = false;
     private DetailsFragment detailsFragment;
@@ -13,46 +14,35 @@ public class MainActivity extends AppCompatActivity  implements MasterFragment.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        showList();
-        if (findViewById(R.id.flDetail) != null){
+
+        showListView();
+
+        if (findViewById(R.id.frameDetails) != null) {
             landscape = true;
             detailsFragment = new DetailsFragment();
             detailsFragment.setId(0);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.flDetail,detailsFragment)
-                    .commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameDetails, detailsFragment).commit();
         }
     }
-    //metoda koja ce prikazati listu svih imena
-    private void showList(){
-        MasterFragment masterFragment = new MasterFragment();
-        //extends AppCompatActivity
-        //Mora se proslediti klasa instance masterFragment
-        //Kada se stavi extend Activity
-        //mora da se import android.app.fragment u MasterFragmetn.class
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.flFrame, masterFragment)
-                .addToBackStack(null)
-                .commit();
+
+    private void showListView() {
+        ListFragment listfragment = new ListFragment();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameList, listfragment).addToBackStack(null).commit();
     }
 
     private void showName(int id) {
         if (landscape) {
-            detailsFragment.updateId(id);
+            detailsFragment.updateID(id);
         } else {
-            DetailsFragment fragment = new DetailsFragment();
-            fragment.setId(id);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.flFrame, fragment)
-                    //.addToBackStack(null) zakomentarisano je da na back dugme ide unaza i izadje iz app
-                    .commit();
+            DetailsFragment detailsFragment = new DetailsFragment();
+            detailsFragment.setId(id);
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameList, detailsFragment).addToBackStack(null).commit();
         }
     }
+
     @Override
-    public void OnNameClicked(int id) {
+    public void onJeloClicked(int id) {
         showName(id);
     }
 }

@@ -3,77 +3,107 @@ package com.example.termin17jelofragment;
 import java.util.List;
 
 public class Jelo {
-    private String food;
-    private float rating;
-    private int id;
-    private String Description;
-    private List<String> Ingridients;
-    private int calories;
-    private double price;
 
-    public String getFood() {
-        return food;
+    private int id, kalorijskaVrednost;
+    private String slikaUrl, naziv, opis, kategorija, sastojci;
+    double cena;
+
+
+    public Jelo() {
+        id = 0;
+        kalorijskaVrednost = 0;
+        slikaUrl = "";
+        naziv = "";
+        opis = "";
+        kategorija = "";
+        sastojci = "";
+        cena = 0;
     }
 
-    public void setFood(String food) {
-        this.food = food;
-    }
-
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
+    public Jelo(int id, String slikaUrl, String naziv, String opis, String kategorija, String sastojci, int kalorijskaVrednost, double cena) {
+        this.id = id;
+        this.kalorijskaVrednost = kalorijskaVrednost;
+        this.slikaUrl = slikaUrl;
+        this.naziv = naziv;
+        this.opis = opis;
+        this.kategorija = kategorija;
+        this.sastojci = sastojci;
+        this.cena = cena;
     }
 
     public int getId() {
         return id;
     }
 
+    public int getKalorijskaVrednost() {
+        return kalorijskaVrednost;
+    }
+
+    public String getSlikaUrl() {
+        return slikaUrl;
+    }
+
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public String getOpis() {
+        return opis;
+    }
+
+    public String getKategorija() {
+        return kategorija;
+    }
+
+    public String getSastojci() {
+        return sastojci;
+    }
+
+    public double getCena() {
+        return cena;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getDescription() {
-        return Description;
+    public void setKalorijskaVrednost(int kalorijskaVrednost) {
+        this.kalorijskaVrednost = kalorijskaVrednost;
     }
 
-    public void setDescription(String description) {
-        Description = description;
+    public void setSlikaUrl(String slikaUrl) {
+        this.slikaUrl = slikaUrl;
     }
 
-    public List<String> getIngridients() {
-        return Ingridients;
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
-    public void setIngridients(List<String> ingridients) {
-        Ingridients = ingridients;
+    public void setOpis(String opis) {
+        this.opis = opis;
     }
 
-    public int getCalories() {
-        return calories;
+    public void setKategorija(String kategorija) {
+        this.kategorija = kategorija;
     }
 
-    public void setCalories(int calories) {
-        this.calories = calories;
+    public void setSastojci(String sastojci) {
+        this.sastojci = sastojci;
     }
 
-    public double getPrice() {
-        return price;
+    public void setCena(double cena) {
+        this.cena = cena;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public Jelo(String food, float rating, int id, String description, List<String> ingridients, int calories, double price) {
-        this.food = food;
-        this.rating = rating;
-        this.id = id;
-        Description = description;
-        Ingridients = ingridients;
-        this.calories = calories;
-        this.price = price;
+    @Override
+    public String toString() {
+        return "Jelo{" +
+                "kalorijskaVrednost=" + kalorijskaVrednost +
+                ", naziv='" + naziv + '\'' +
+                ", opis='" + opis + '\'' +
+                ", kategorija='" + kategorija + '\'' +
+                ", sastojci='" + sastojci + '\'' +
+                ", cena=" + cena +
+                '}';
     }
 }
